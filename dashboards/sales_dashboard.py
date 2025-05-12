@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+import os
 
 
 
@@ -23,7 +23,9 @@ st.sidebar.header("Filters")
 
 # Connect to the database
 def get_data(query):
-    with sqlite3.connect("../data/sales_data.db") as conn:
+    # Get the absolute path to the database
+    db_path = os.path.join(os.path.dirname(__file__), "../data/sales_data.db")
+    with sqlite3.connect(db_path) as conn:
         return pd.read_sql_query(query, conn)
 
 # Total Sales by Category
